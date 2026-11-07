@@ -91,11 +91,11 @@ The final neighborhood-level dataset is exported to GeoParquet.
 
 | Neighborhood | Borough | Hydrants/km² |
 |---|---|---:|
-| Gramercy | Manhattan | 384.73 |
-| SoHo–Little Italy–Hudson Square | Manhattan | 360.00 |
-| Tribeca–Civic Center | Manhattan | 343.25 |
-| West Village | Manhattan | 333.74 |
-| Financial District–Battery Park City | Manhattan | 319.11 |
+| Gramercy | Manhattan | 384.97 |
+| SoHo–Little Italy–Hudson Square | Manhattan | 360.22 |
+| Tribeca–Civic Center | Manhattan | 343.47 |
+| West Village | Manhattan | 333.94 |
+| Financial District–Battery Park City | Manhattan | 319.31 |
 
 All five highest-density neighborhoods are in Manhattan.
 
@@ -117,7 +117,7 @@ The lowest-density neighborhoods consist largely of nonresidential areas, includ
 
 | Metric | Result |
 |---|---:|
-| Median neighborhood density | 165.51 hydrants/km² |
+| Median neighborhood density | 165.6 hydrants/km² |
 | Median 100-meter coverage | 95.17% |
 | Mean 100-meter coverage | 79.45% |
 | Financial District–Battery Park City coverage (PostGIS) | 94.29% |
@@ -169,7 +169,17 @@ An initial coverage comparison for Financial District–Battery Park City produc
 
 The small difference prompted examination of buffer polygon resolution, which differs between the default implementations of PostGIS and GeoPandas.
 
-**Final cross-platform density and coverage validation is pending.** The validated results and any remaining numerical differences will be documented after comparison.
+### SQL and Python Validation
+
+The spatial analysis was independently implemented in PostGIS and GeoPandas using the same NYC source datasets.
+
+Both implementations use EPSG:26918 for distance and area calculations and equivalent buffer resolutions for the 100-meter coverage analysis.
+
+The five highest-density neighborhoods produced identical hydrant counts and density values to two decimal places across both environments.
+
+The 100-meter geographic coverage calculation for Financial District–Battery Park City also agreed at **94.29%**.
+
+Initial differences were traced to inconsistent projected coordinate systems and buffer resolution. Standardizing these parameters produced matching results.
 
 ## Project Structure
 
